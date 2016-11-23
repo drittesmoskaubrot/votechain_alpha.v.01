@@ -1,64 +1,34 @@
-VoteChainCoin - an educational cryptocurrency based on SmallChange.
-In this version there are no direct changes to block targets, etc.
-Any changes are left up to the user. SmallChange information can be found below.
-I don't take any credit for the SMC source codes, barring the few changes I have made. 
-All credit goes to the creator of SMC and Litecoin.
-You can find a writeup of this project here:
-http://www.ocf.berkeley.edu/~baisang/VoteChainCoin.pdf
-which details the process of using this repository to create your own aVTNoin,
-or simply just understanding how cryptocurrencies work in general.
+#Vote-Chain: A Blockchain based Electronic Vote Recording System
 
-==================================================================
+**Abstract** Electronic voting systems relying on mere relational data manage-
+ment systems for the recording and verification of elective choices would allow
+elections to evolve into paperless and automated processes that replace the need
+for manual counting, sorting, and verification of ballot papers. But databases
+such as MySQL, mongo DB, SQLite and other relational databases are just a
+partial solution because they do not provide proper security and are not tamper
+proof. Once an Attacker has access to such an DB he owns every aspect of it
+and can change it per his will.
 
+Apart from this E-Voting systems that are based on DBMS require client software
+for the management of databases, and certain front end entry point software
+such as web applications or local desktop applications that are responsible
+to capture and store an elective choice. The problem with such a scenario
+materializes once we realize the one-sided focus in design and architecture of
+these E-Voting systems, a failure to capture, acknowledge and utilize important
+transaction aspects and characteristics of incoming and outgoing transactions
+i.e. missing transaction protocols for single votes that have no current origin
+or destination association.
 
-SmallChange (SMC) - a 'faster' version of Litecoin which also uses scrypt
-as a proof of work scheme and is intended for microtransactions.
- - 15 seconds block targets: beat that MinCoin! ;)
- - 42 007 680 total coins
- - no subsidy within the first 3 days and after approximately 5 years;
-    in between: 4 coins per generated block
- - difficulty retargets every 0.35 days
- - currently peers are looked up over IRC only
- - currently no block checkpoints are in the code (but could be easily
-   added)
-Other than that, this coin is exactly like Litecoin and should by no
-means be used as a real cryptocurrency. All of the coin parameters
-are chosen arbitrarily or at most with 'fairness' towards everyone in mind.
+A blockchain version of Electronic Vote Recording Systems can provide a solution
+and merge the two systems into one by storing elective choices
+within transactions.
 
-So actually, this 'new' coin exists for the following reasons:
- - SMC proves that really anyone(!) can start a Litecoin/Bitcoin based currency
-    (just look at the changes I applied to the original Litecoin source,
-     for genesis block generation look at main.cpp)
- - allows me to experiment with coin parameters (in a private network)
-
-Finally, I only tested the command line server/tool 'smallchange' for the
-first 30 blocks. Credits go to the original authors/communities that
-created Bitcoin and Litecoin.
-
-Development process
-===================
-
-Developers work in their own trees, then submit pull requests when
-they think their feature or bug fix is ready.
-
-The patch will be accepted if there is broad consensus that it is a
-good thing.  Developers should expect to rework and resubmit patches
-if they don't match the project's coding conventions (see coding.txt)
-or are controversial.
-
-The master branch is regularly built and tested, but is not guaranteed
-to be completely stable. Tags are regularly created to indicate new
-official, stable release versions of Litecoin.
-
-Feature branches are created when there are major new features being
-worked on by several people.
-
-From time to time a pull request will become outdated. If this occurs, and
-the pull is no longer automatically mergeable; a comment on the pull will
-be used to issue a warning of closure. The pull will be closed 15 days
-after the warning if action is not taken by the author. Pull requests closed
-in this manner will have their corresponding issue labeled 'stagnant'.
-
-Issues with no commits will be given a similar warning, and closed after
-15 days from their last activity. Issues closed in this manner will be 
-labeled 'stale'.
+##Proposal
+I propose an approach that transforms bitcoins current asset transaction man-
+agement design into an electronic peer 2 peer vote recording system where the
+network manages and secures transactions by hashing them into an evolving
+chain of “hash-based proof-of-work”, additionally I will introduce a new feature
+that includes Token-Transition Certificates into transactions which can take on
+the role of receipts. All of these aspects together will form a public record that
+cannot be changed without redoing the proof of work for all elements in the
+chain including our Token-Transition Certificates.

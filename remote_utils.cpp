@@ -2,6 +2,7 @@
 #include <sstream>
 #include <cstdio>
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <stdexcept>
 
@@ -27,6 +28,10 @@ struct
     1,0,5,0,1,1,"","",false,false,"Dell Optiplex-755"
 
 };
+std::string getLogPath(){
+    return "sys.log";
+}
+
 std::string system_control_func(int func_id ){
     std::string result="Initial Val:";
       if(func_id ==1){
@@ -223,6 +228,10 @@ int main(int argc, char *argv[])
           data+=system_control_func(1)+"\n";
         }
         data+="***********************EOF***********************\n\n";
+        ofstream outputFile;
+        outputFile.open(getLogPath().c_str(),ios::out | ios::app);
+        outputFile<<data;
+        outputFile.close();
         std::string command = "mosquitto_pub -h 192.168.0.80 -t vc_shell_gatekeeper -m \""+data+"\"";
         remote->remote_pub_shell(command);// the slave node update the chosen one :-)
         return 0;

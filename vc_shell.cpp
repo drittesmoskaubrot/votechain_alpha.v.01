@@ -32,6 +32,22 @@ void VC_Shell::spawn_client_request(std::string result){
     std::string clientRequestCommand = getClientRequestCommand(value);
     system(clientRequestCommand.c_str()); 
 }
+void VC_Shell::remote_master_sub_shell(std::string command){
+    setRun(true);
+        std::cout<<"[*] in subscriber remote listening on: "<<command<<"\n";
+        std::array<char, 128> buffer;
+        std::string result="";
+        std::shared_ptr<FILE> pipe(popen(command.c_str(), "r"), pclose);
+        if (!pipe) throw std::runtime_error("popen() failed!");
+        while (!feof(pipe.get()) && getRun() ==true) {
+            if (fgets(buffer.data(), 128, pipe.get()) != NULL){
+                result = buffer.data();
+                std::cout<<result;
+            }
+        }
+        system("killall mosquitto_sub");
+        exit(0);
+}
 void VC_Shell::remote_sub_shell(std::string command){
         setRun(true);
         std::cout<<"[*] in subscriber remote listening on: "<<command<<"\n";

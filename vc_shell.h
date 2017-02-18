@@ -5,10 +5,13 @@
 #include <iostream>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string.hpp>
+#include <stdio.h>
+#include <time.h>
 
 class VC_Shell{
 
 public: 
+
     VC_Shell(std::string executable);
     VC_Shell();
     std::vector<std::string> getCommands(){
@@ -165,7 +168,19 @@ public:
     	 "importprivkey","listunspent","getrawtransaction","createrawtransaction",
     	 "decoderawtransaction","signrawtransaction","sendrawtransaction",  
         };
-     }
+    }
+
+
+    // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
+    const std::string currentDateTime() {
+        time_t     now = time(0);
+        struct tm  tstruct;
+        char       buf[80];
+        tstruct = *localtime(&now);
+        strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+        return buf;
+    }
     bool getRun(){
        return run;
     }
@@ -180,7 +195,9 @@ public:
     }
     void spawn_client_request(std::string result);
 	void remote_pub_shell(std::string command);
+    void remote_tmp_surveillance_pub_shell(std::string command);
 	void remote_sub_shell(std::string command);
+    void remote_master_sub_shell(std::string command);
     void remote_master_shell(int ip_locator,bool isPup,int command_index, std::string extras);
     void setCommandExtras(std::string extras){
         command_extras = extras;

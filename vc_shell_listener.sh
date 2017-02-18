@@ -2,9 +2,9 @@
 while [ true ]
 do
 echo "[*] test"
-cd  ~/git/votechain_alpha.v.01/
-./remote_utils -h "Acer Aspire | v5 agent" -n -s
-sleep 60
+cd  ~/git/votechain_alpha.v.01
+./remote_utils -h "Intel Edison agent" -n -s
+sleep 1000
 # just in case something weird happens
 killall mosquitto_sub
 done

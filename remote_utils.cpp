@@ -5,6 +5,7 @@
 #include <fstream>
 #include <memory>
 #include <stdexcept>
+#include <array>
 
 using namespace std;
 struct

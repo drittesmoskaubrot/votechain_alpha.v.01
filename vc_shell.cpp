@@ -1,3 +1,4 @@
+#include <array>
 #include "vc_shell.h"
 #include <string>
 #include <iostream>
@@ -8,7 +9,6 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <array>
 #include <sstream>
 
 #define SSTR( x ) static_cast< std::ostringstream & >( \

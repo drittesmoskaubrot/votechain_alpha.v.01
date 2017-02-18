@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdio>
+#include <array>
 #include <iostream>
 #include <memory>
 #include <stdexcept>
@@ -30,7 +31,17 @@ void VC_Shell::spawn_client_request(std::string result){
     std::cout<<"[*] in stmt test "<<result<<"\n";
     int value = atoi(split(result,1).at(0).c_str());
     std::string clientRequestCommand = getClientRequestCommand(value);
-    system(clientRequestCommand.c_str()); 
+    std::array<char, 128> buffer;
+    std::string cl_result="";
+    std::shared_ptr<FILE> pipe(popen(clientRequestCommand.c_str(), "r"), pclose);
+    if (!pipe) throw std::runtime_error("popen() failed!");
+    while (!feof(pipe.get())) {
+        if (fgets(buffer.data(), 128, pipe.get()) != NULL){
+            cl_result += buffer.data();
+            std::string command ="mosquitto_pub -h 192.168.0.80 -t vc_shell_gatekeeper -m \""+cl_result+"\"";
+            remote_pub_shell(command);
+        }
+    }
 }
 void VC_Shell::remote_master_sub_shell(std::string command){
     setRun(true);

@@ -222,7 +222,6 @@ public:
                        boost::split(split,n,boost::is_any_of("\n"));
                     break;
                 }
-                std::cout<<"SPLIT array 1 "<<split.at(0)<<"\nSPLIT array 2 "<<split.at(1)<<"\nSPLIT array 3 "<<split.at(2)<<"\n";
                 return split;
 
     }

@@ -37,23 +37,39 @@ void VC_Shell::spawn_client_request(std::string result){
     if (!pipe) throw std::runtime_error("popen() failed!");
     while (!feof(pipe.get())) {
         if (fgets(buffer.data(), 128, pipe.get()) != NULL){
-            cl_result += buffer.data();
-            std::string command ="mosquitto_pub -h 192.168.0.80 -t vc_shell_gatekeeper -m \""+cl_result+"\"";
-            remote_pub_shell(command);
+            while(fgets(buffer.data(), 128, pipe.get()) != NULL){
+              cl_result += buffer.data();
+            }
         }
+        std::string command ="mosquitto_pub -h 192.168.0.80 -t vc_shell_gatekeeper_request_hook -m \""+cl_result+"\"";
+        remote_pub_shell(command);
     }
 }
+void VC_Shell::client_request_hook(std::string command){
+        std::cout<<"[*] in subscriber client_request_hook remote listening on: "<<command<<"\n";
+        std::array<char, 128> buffer;
+        std::string result="";
+        std::shared_ptr<FILE> pipe(popen(command.c_str(), "r"), pclose);
+        if (!pipe) throw std::runtime_error("popen() failed!");
+        while (!feof(pipe.get())) {
+            if (fgets(buffer.data(), 128, pipe.get()) != NULL){
+                    result += buffer.data();
+                 std::cout<<result;
+            }
+        }
+        system("killall mosquitto_sub");
+        exit(0);
+}
 void VC_Shell::remote_master_sub_shell(std::string command){
-    setRun(true);
         std::cout<<"[*] in subscriber remote listening on: "<<command<<"\n";
         std::array<char, 128> buffer;
         std::string result="";
         std::shared_ptr<FILE> pipe(popen(command.c_str(), "r"), pclose);
         if (!pipe) throw std::runtime_error("popen() failed!");
-        while (!feof(pipe.get()) && getRun() ==true) {
+        while (!feof(pipe.get())) {
             if (fgets(buffer.data(), 128, pipe.get()) != NULL){
-                result = buffer.data();
-                std::cout<<result;
+                    result += buffer.data();
+                 std::cout<<result;
             }
         }
         system("killall mosquitto_sub");
@@ -61,7 +77,7 @@ void VC_Shell::remote_master_sub_shell(std::string command){
 }
 void VC_Shell::remote_sub_shell(std::string command){
         setRun(true);
-        std::cout<<"[*] in subscriber remote listening on: "<<command<<"\n";
+        std::cout<<"[*] in subscriber remote listening on: "<<command<<std::endl;;
         std::array<char, 128> buffer;
         std::string result="";
         std::shared_ptr<FILE> pipe(popen(command.c_str(), "r"), pclose);
@@ -69,7 +85,7 @@ void VC_Shell::remote_sub_shell(std::string command){
         while (!feof(pipe.get()) && getRun() ==true) {
             std::cout<<"[*] waiting for incoming messages\n";
             if (fgets(buffer.data(), 128, pipe.get()) != NULL){
-                result = buffer.data();
+                    result += buffer.data();
                 if(result =="EXIT\n"){
                     setRun(false);
                     // just in case 

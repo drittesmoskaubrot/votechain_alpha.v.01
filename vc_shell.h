@@ -15,26 +15,26 @@ public:
     VC_Shell(std::string executable);
     VC_Shell();
     std::vector<std::string> getCommands(){
-		return commands;
-	}
+        return commands;
+    }
     std::string getClientRequestCommand(int value){
-    	/*"start","stop","help","getblockcount","getconnectioncount",  
-    	 "getpeerinfo","getdifficulty","getnetworkhashps","getgenerate",         
-    	 "setgenerate","gethashespersec","getinfo","getmininginfo",       
-    	 "getnewaddress","getaccountaddress","setaccount","getaccount",          
-    	 "getaddressesbyaccount","sendtoaddress","getreceivedbyaddress",
-    	 "getreceivedbyaccount","listreceivedbyaddress","listreceivedbyaccount"
-    	 "backupwallet","keypoolrefill","walletpassphrase","walletpassphrasechange",
-    	 "walletlock","encryptwallet","validateaddress","getbalance","move",                
-    	 "sendfrom","sendmany","addmultisigaddress","getrawmempool",       
-    	 "getblock","getblockhash","gettransaction","listtransactions","signmessage",         
-    	 "verifymessage","getwork","getworkex","listaccounts","settxfee",            
-    	 "setmininput","getblocktemplate","listsinceblock","dumpprivkey",         
-    	 "importprivkey","listunspent","getrawtransaction","createrawtransaction",
-    	 "decoderawtransaction","signrawtransaction","sendrawtransaction",
+        /*"start","stop","help","getblockcount","getconnectioncount",  
+         "getpeerinfo","getdifficulty","getnetworkhashps","getgenerate",         
+         "setgenerate","gethashespersec","getinfo","getmininginfo",       
+         "getnewaddress","getaccountaddress","setaccount","getaccount",          
+         "getaddressesbyaccount","sendtoaddress","getreceivedbyaddress",
+         "getreceivedbyaccount","listreceivedbyaddress","listreceivedbyaccount"
+         "backupwallet","keypoolrefill","walletpassphrase","walletpassphrasechange",
+         "walletlock","encryptwallet","validateaddress","getbalance","move",                
+         "sendfrom","sendmany","addmultisigaddress","getrawmempool",       
+         "getblock","getblockhash","gettransaction","listtransactions","signmessage",         
+         "verifymessage","getwork","getworkex","listaccounts","settxfee",            
+         "setmininput","getblocktemplate","listsinceblock","dumpprivkey",         
+         "importprivkey","listunspent","getrawtransaction","createrawtransaction",
+         "decoderawtransaction","signrawtransaction","sendrawtransaction",
         */
         switch(value){
-        	// start
+            // start
             case  1: return getCurrentExecutable()+" &";
             // stop
             case  2: return getCurrentExecutable()+" "+getCommands().at(1)+" "+getCommandExtras();
@@ -153,20 +153,20 @@ public:
     }
     void VC_Shell_CommandSetup(){
         commands = std::vector<std::string>{
-    	 "start","stop","help","getblockcount","getconnectioncount",  
-    	 "getpeerinfo","getdifficulty","getnetworkhashps","getgenerate",         
-    	 "setgenerate","gethashespersec","getinfo","getmininginfo",       
-    	 "getnewaddress","getaccountaddress","setaccount","getaccount",          
-    	 "getaddressesbyaccount","sendtoaddress","getreceivedbyaddress",
-    	 "getreceivedbyaccount","listreceivedbyaddress","listreceivedbyaccount"
-    	 "backupwallet","keypoolrefill","walletpassphrase","walletpassphrasechange",
-    	 "walletlock","encryptwallet","validateaddress","getbalance","move",                
-    	 "sendfrom","sendmany","addmultisigaddress","getrawmempool",       
-    	 "getblock","getblockhash","gettransaction","listtransactions","signmessage",         
-    	 "verifymessage","getwork","getworkex","listaccounts","settxfee",            
-    	 "setmininput","getblocktemplate","listsinceblock","dumpprivkey",         
-    	 "importprivkey","listunspent","getrawtransaction","createrawtransaction",
-    	 "decoderawtransaction","signrawtransaction","sendrawtransaction",  
+         "start","stop","help","getblockcount","getconnectioncount",  
+         "getpeerinfo","getdifficulty","getnetworkhashps","getgenerate",         
+         "setgenerate","gethashespersec","getinfo","getmininginfo",       
+         "getnewaddress","getaccountaddress","setaccount","getaccount",          
+         "getaddressesbyaccount","sendtoaddress","getreceivedbyaddress",
+         "getreceivedbyaccount","listreceivedbyaddress","listreceivedbyaccount"
+         "backupwallet","keypoolrefill","walletpassphrase","walletpassphrasechange",
+         "walletlock","encryptwallet","validateaddress","getbalance","move",                
+         "sendfrom","sendmany","addmultisigaddress","getrawmempool",       
+         "getblock","getblockhash","gettransaction","listtransactions","signmessage",         
+         "verifymessage","getwork","getworkex","listaccounts","settxfee",            
+         "setmininput","getblocktemplate","listsinceblock","dumpprivkey",         
+         "importprivkey","listunspent","getrawtransaction","createrawtransaction",
+         "decoderawtransaction","signrawtransaction","sendrawtransaction",  
         };
     }
 
@@ -185,18 +185,19 @@ public:
        return run;
     }
     void setRun(bool isRun){
-    	run = isRun;
+        run = isRun;
     }
     bool getHasExtras(){
        return hasExtras;
     }
     void setHasExtras(bool extras){
-    	hasExtras = extras;
+        hasExtras = extras;
     }
     void spawn_client_request(std::string result);
-	void remote_pub_shell(std::string command);
+    void client_request_hook(std::string command);
+    void remote_pub_shell(std::string command);
     void remote_tmp_surveillance_pub_shell(std::string command);
-	void remote_sub_shell(std::string command);
+    void remote_sub_shell(std::string command);
     void remote_master_sub_shell(std::string command);
     void remote_master_shell(int ip_locator,bool isPup,int command_index, std::string extras);
     void setCommandExtras(std::string extras){
@@ -224,18 +225,18 @@ public:
                 return split;
     }
     std::string getCommandExtras(){
-    	return command_extras;
+        return command_extras;
     }
     std::string getCurrentExecutable(){
       return currentExecutable;
     }     
     
     private:
-	std::string currentExecutable;
-	std::string command_extras;
-	bool run;
-	bool hasExtras;
-	std::vector<std::string> commands;
+    std::string currentExecutable;
+    std::string command_extras;
+    bool run;
+    bool hasExtras;
+    std::vector<std::string> commands;
 };
 
 

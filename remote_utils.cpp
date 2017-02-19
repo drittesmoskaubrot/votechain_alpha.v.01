@@ -22,17 +22,23 @@ struct
     bool tmp_guard;
     bool tmp_agent;
     std::string host_name;
+    bool hook;
 
 } opts =
 {
     // default values is master at present its 192.168.1.80 can change
-    1,0,5,0,1,1,"","",false,false,"Dell Optiplex-755"
+    1,0,5,0,1,1,"","",false,false,"Dell Optiplex-755",false
 
 };
 std::string getLogPath(){
     return "sys.log";
 }
-
+std::string getMasterIp(){
+    return "192.168.0.124";
+}
+std::string getHookCmd(){
+    return "mosquitto_sub -h 192.168.0.80 -t vc_shell_gatekeeper_request_hook";
+}
 std::string system_control_func(int func_id ){
     std::string result="Initial Val:";
       if(func_id ==1){
@@ -61,7 +67,6 @@ std::string system_control_func(int func_id ){
         }
 
       }
-      std::cout<<"In exit mode returning this:"+result;
       return result;
 }
 void getCommands(){
@@ -93,23 +98,25 @@ void usage(){
     printf("    -m <master> (default is %d)\n", opts.master);
     printf("    -n <node> (default is %d)\n", opts.node);
     printf("    -s <pub/sub?> (default is %d)\n", opts.pub);
-    printf("    -ip_index <indes of target ip> (default is 5)\n");
     printf("    -buff additional command parameters defaul is none\n");
     printf("    -msg simple message default is empty \n");
     printf("    -tmp_guard cpu temperature surveillance\n");
     printf("    -tmp_agent cpu temperature agent (publish cpu temperature to broker)\n");
-    printf("       1) 192.168.0.150\n");
-    printf("       2) 192.168.0.144\n");
-    printf("       3) 192.168.0.129\n");
-    printf("       4) 192.168.0.124\n");
-    printf("       5) 192.168.0.80\n");
+    printf("    -hook (catch remote RPC calls listens on predefined topic)\n");
+    printf("    -ip_index <index of target ip> (default is 5)\n");
+    printf("              1.) <192.168.0.150>\n");
+    printf("              2.) <192.168.0.144>\n");
+    printf("              3.) <192.168.0.129>\n");
+    printf("              4.) <192.168.0.124>\n");
+    printf("              5.) <192.168.0.80>\n");
+   
     printf("\n");
     printf("    -cmd_index <command index> (default is %d)\n", opts.command_index);
     getCommands();
    
     exit(0);
 }
-
+// mosquitto_pub -h 192.168.0.80 -t vc_shell_gatekeeper_request_hook 
 void getOpts(int argc, char* argv[])
 {
     int count = 1;
@@ -128,6 +135,10 @@ void getOpts(int argc, char* argv[])
              }
              else
                 opts.tmp_guard =true;
+        }
+        else if (strcmp(argv[count], "-hook") == 0)
+        {
+              opts.hook =true;
         }
         else if (strcmp(argv[count], "-tmp_agent") == 0)
         {
@@ -208,7 +219,16 @@ int main(int argc, char *argv[])
        getOpts(argc,argv);
        remote = new VC_Shell("~/git/votechain_alpha.v.01/src/VoteChainCoin");
        remote->VC_Shell_CommandSetup();
+       std::cout<<"[*] hook is: "<<opts.hook;
        // check is it temperature surveillance mode
+       if(opts.hook == true){
+          // just warning user hook is selected all other selections are void:
+          std::cout<<"\n[*] Client Request hook selected:\n   falling back to default settings all selections are VOID"<<std::endl;
+          // resetting the node options just in case someone tries weird stuff here:
+          saveResetOpts();
+          remote->client_request_hook(getHookCmd());
+       }
+     
        if(opts.tmp_guard == true){
         // does not matter weather its a master or remote node all publishing to same broker
         // master broker will be DELL Optiplex but for initial test is Acer
@@ -232,7 +252,7 @@ int main(int argc, char *argv[])
         ofstream outputFile;
         outputFile.open(getLogPath().c_str(),ios::out | ios::app);
         outputFile<<data;
-        outputFile.close();
+        outputFile.close();                     // change later for master
         std::string command = "mosquitto_pub -h 192.168.0.80 -t vc_shell_gatekeeper -m \""+data+"\"";
         remote->remote_pub_shell(command);// the slave node update the chosen one :-)
         return 0;

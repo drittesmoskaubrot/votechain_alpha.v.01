@@ -42,7 +42,7 @@ std::string getHookCmd(){
 std::string system_control_func(int func_id ){
     std::string result="Initial Val:";
       if(func_id ==1){
-        std::string command = "sensors";
+        std::string command = "sensors | grep temp";
         std::array<char, 128> buffer;
         std::shared_ptr<FILE> pipe(popen(command.c_str(), "r"), pclose);
         if (!pipe) throw std::runtime_error("popen() failed!");

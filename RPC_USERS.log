@@ -1,0 +1,50 @@
+#NAME Raspberry Pi
+#MAC_ADDR 00:21:9B:51:90:6F
+#HASH c18dc889bb1f6726f97697cfefe104a8a34b00fb9da99084977e1821dc570ac2
+rpcuser=Constituency1
+rpcpassword=demo2017
+addnode=192.168.0.150
+addnode=192.168.0.80
+addnode=192.168.0.129
+addnode=192.168.0.124
+
+#NAME ubilinux
+#MAC_ADDR FC:C2:DE:30:29:B2
+#HASH 3de48f7fc239b4e0594c0407c539bc5a056235ddba147df3119d95f08769e05b
+rpcuser=Constituency2
+rpcpassword=demo2017
+addnode=192.168.0.144
+addnode=192.168.0.80
+addnode=192.168.0.129
+addnode=192.168.0.124
+
+
+#NAME Dell Optiplex-755
+#MAC_ADDR 74:DA:38:41:60:FF
+#HASH 1a2bf294f4f51a2031dfb8ebae2368aed244cd33aa416fa1a97da279e1f35494
+rpcuser=Master
+rpcpassword=demo2017
+addnode=192.168.0.150
+addnode=192.168.0.80
+addnode=192.168.0.129
+addnode=192.168.0.144
+
+#NAME HP 
+#MAC_ADDR 08:86:3B:01:C6:4E
+#HASH 57b3ad39c9175a15a2169966f4ab50130a6aaac9db271f74a72c379da729211b
+rpcuser=Constituency3
+rpcpassword=demo2017
+addnode=192.168.0.150
+addnode=192.168.0.80
+addnode=192.168.0.144
+addnode=192.168.0.124
+
+#NAME Acer
+#MAC_ADDR 48:D2:24:BA:F1:A0
+#HASH d4745cffea804c1ea65965ca43021820bda9f0b18d3be847e9fcaa09d5e1b792
+rpcuser=Constituency4
+rpcpassword=demo2017
+addnode=192.168.0.150
+addnode=192.168.0.144
+addnode=192.168.0.129
+addnode=192.168.0.124

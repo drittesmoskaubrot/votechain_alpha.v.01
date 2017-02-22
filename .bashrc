@@ -98,6 +98,12 @@ alias edison='ssh root@192.168.0.150'
 alias rogue1='ssh rogue@192.168.0.124'
 alias rogue2='ssh anon@192.168.0.129'
 alias rogue3='ssh rogue@192.168.0.80'
+alias vclogger'tail -f ~/.VotechainCoin/debug.log'
+alias syslogger'tail -f ~/var/log/syslog'
+alias chklog="cat ~/var/log/syslog"
+alias setenv="mv ~/.bashrc ~/.bashrc.old $$ cp $dev/.bashrc ~/.bashrc"
+alias resetToStandard="rm ~/.bashrc  $$ mv $dev/.bashrc.old ~/.bashrc"
+alias 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

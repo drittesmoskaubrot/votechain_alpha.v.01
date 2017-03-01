@@ -1,0 +1,11 @@
+START_COMMAND="vc &"
+GET_ADDRESS="vc getnewaddress"
+GET_PRIV_KEY="vc dumpprivkey &ADDRESS"
+ADDRESS=$($GET_ADDRESS)
+PRIV_KEY=$($GET_PRIV_KEY)
+
+$START_COMMAND
+
+
+
+

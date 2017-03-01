@@ -7,6 +7,7 @@ addnode=192.168.0.150
 addnode=192.168.0.80
 addnode=192.168.0.129
 addnode=192.168.0.124
+addnode=192.168.0.151
 
 #NAME ubilinux
 #MAC_ADDR FC:C2:DE:30:29:B2
@@ -17,6 +18,7 @@ addnode=192.168.0.144
 addnode=192.168.0.80
 addnode=192.168.0.129
 addnode=192.168.0.124
+addnode=192.168.0.151
 
 
 #NAME Dell Optiplex-755
@@ -28,6 +30,7 @@ addnode=192.168.0.150
 addnode=192.168.0.80
 addnode=192.168.0.129
 addnode=192.168.0.144
+addnode=192.168.0.151
 
 #NAME HP 
 #MAC_ADDR 08:86:3B:01:C6:4E
@@ -38,6 +41,7 @@ addnode=192.168.0.150
 addnode=192.168.0.80
 addnode=192.168.0.144
 addnode=192.168.0.124
+addnode=192.168.0.151
 
 #NAME Acer
 #MAC_ADDR 48:D2:24:BA:F1:A0
@@ -48,3 +52,17 @@ addnode=192.168.0.150
 addnode=192.168.0.144
 addnode=192.168.0.129
 addnode=192.168.0.124
+addnode=192.168.0.151
+
+#NAME Sony
+#MAC_ADDR 48:D2:24:BA:F1:A0
+#HASH 38bf88bab8a3a346b9cae27c9da36a519e1d775a8b2fd2cf950c84accdde03ce
+rpcuser=Constituency5
+rpcpassword=demo2017
+addnode=192.168.0.150
+addnode=192.168.0.144
+addnode=192.168.0.129
+addnode=192.168.0.124
+addnode=192.168.0.180
+
+
